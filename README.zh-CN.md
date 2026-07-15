@@ -24,18 +24,6 @@ Python-first 的 Agent 运行时，包括控制论编排、自适应记忆、本
 
 它不是把 LLM 简单包成一个命令行工具，而是把上下文压力、工具失败、记忆噪音和成本漂移都当作可观测信号，再反馈到运行时决策里。
 
-## 为什么做这个版本
-
-很多 Coding Agent 本质上是“模型包装器”：输入 prompt，调用工具，然后希望循环不要坏掉。MiniCode Python 走的是另一条路线：
-
-> 编码 Agent 应该在工作时观察自己，并动态调整上下文、记忆、验证、并发和恢复行为。
-
-因此这个仓库适合用来：
-
-- 阅读一个完整可运行的本地 Coding Agent；
-- 研究 Agent 控制、记忆和验证闭环；
-- 作为 TypeScript MiniCode 主仓库的 Python 伴随实现；
-- 在进入大型平台之前，先验证运行时控制想法。
 
 ## 核心亮点
 
@@ -139,26 +127,3 @@ pytest -q
 | `minicode/domain_classifier.py` | 任务和文件领域推断。 |
 | `minicode/model_registry.py` | 模型选择控制器。 |
 | `minicode/progress_controller.py` | 任务健康度和卡顿检测。 |
-
-## MiniCode 家族
-
-| 版本 | 仓库 | 重点 |
-| --- | --- | --- |
-| TypeScript | [LiuMengxuan04/MiniCode](https://github.com/LiuMengxuan04/MiniCode) | 主线终端 Agent、TUI、MCP、Skills、会话和上下文控制。 |
-| Python | [QUSETIONS/MiniCode-Python](https://github.com/QUSETIONS/MiniCode-Python) | 控制论 Python 运行时、记忆管线和面向验证的实验。 |
-| Rust | [harkerhand/MiniCode-rs](https://github.com/harkerhand/MiniCode-rs/tree/master) | Rust 实现和系统侧实验。 |
-| Java | [hobbescalvin414-tech/minicode4j](https://github.com/hobbescalvin414-tech/minicode4j/tree/feat/default-ts-ui) | Java 实现，沿用 TypeScript 风格 UI 方向。 |
-
-## 文档
-
-- [完整优化总结](./docs/OPTIMIZATION_SUMMARY.md)
-- [记忆理论说明](./docs/memory_theory.md)
-- [MiniCode 主仓库](https://github.com/LiuMengxuan04/MiniCode)
-
-## 设计原则
-
-- 让 Agent 主循环保持可读、可查、可改。
-- 优先使用可观测运行时信号，而不是隐藏 prompt 技巧。
-- 运行时动作必须有边界：压缩、限流、调预算、恢复、反思。
-- 把验证和证据当作 Agent 运行时的一部分。
-- 让 Python 实现既能作为软件使用，也能作为研究脚手架。
